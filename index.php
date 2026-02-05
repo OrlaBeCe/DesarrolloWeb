@@ -33,7 +33,7 @@
                     <input type="submit" value="Enviar">
                 </td>
             </tr>
-        </table>
+        </table> 
     </form>
     <?php
     if(isset($_GET['mensaje'])){

@@ -6,10 +6,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $giro = $_POST['giro'];
         $razon_social = $_POST['razonsocial'];
 
-        //$server = "localhost";
-        //$user = "root";
-        //$pass = "";
-        //$bd = "MiPagina";
+        $server = "localhost";
+        $user = "root";
+        $pass = "";
+        $bd = "MiPagina";
 
         $conexion = new mysqli($server,$user,$pass,$bd);
  
