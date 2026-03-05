@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículum Profesional - Programador</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #ecf0f1;
+            object-fit: cover;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-text h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header-text p {
+            font-size: 1.2em;
+            color: #bdc3c7;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            font-size: 0.95em;
+            color: #ecf0f1;
+        }
+
+        .contact-info span {
+            margin: 0 15px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #34495e;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-name {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #34495e, #7f8c8d);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .experience-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-title {
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .dates {
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .header-text h1 {
+                font-size: 1.8em;
+            }
+
+            .header-content {
+                gap: 20px;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="avatar.png" alt="Foto de perfil" class="profile-photo">
+            <div class="header-text">
+                <h1>Orlando Becerra Cervantes</h1>
+                <p>Ingeniero Informatico | Desarrollador Full Stack</p>
+                <div class="contact-info">
+                    <span>📧 juan.rodriguez@email.com</span>
+                    <span>📱 +34 123 456 789</span>
+                    <span>📍 Jalico, Mexico</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>👨‍💼 Perfil Profesional</h2>
+            <p>Ingeniero de Software con más de 5 años de experiencia en desarrollo de aplicaciones web y móviles. Especializado en arquitectura de sistemas, optimización de código y liderazgo técnico. Comprometido con la calidad del código y las mejores prácticas de desarrollo.</p>
+        </section>
+
+        <section>
+            <h2>💻 Habilidades Técnicas</h2>
+            <div class="skills-container">
+                <div class="skill-item">
+                    <div class="skill-name">JavaScript / TypeScript</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 95%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">React / Vue.js</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">Python</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 88%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">Java</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">SQL / Base de Datos</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">AWS / DevOps</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">REST API</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 93%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">HTML / CSS</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 94%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>🏢 Experiencia Laboral</h2>
+
+            <div class="experience-item">
+                <div class="job-title">Senior Full Stack Developer</div>
+                <div class="company">TechSolutions Spain S.L.</div>
+                <div class="dates">Enero 2021 - Presente</div>
+                <div class="description">
+                    Líder del equipo de desarrollo en la creación de plataformas web escalables. Implementación de arquitecturas microservicios, optimización de rendimiento y mentorización de 4 desarrolladores junior. Reducción del tiempo de carga en 40%.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Full Stack Developer</div>
+                <div class="company">Digital Innovations Ltd.</div>
+                <div class="dates">Marzo 2019 - Diciembre 2020</div>
+                <div class="description">
+                    Desarrollo de aplicaciones web con React y Node.js. Integración de APIs REST, gestión de bases de datos SQL y NoSQL. Implementación de metodologías Agile y desarrollo de pruebas unitarias.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Junior Developer</div>
+                <div class="company">WebDev Studio</div>
+                <div class="dates">Junio 2018 - Febrero 2019</div>
+                <div class="description">
+                    Desarrollo de componentes frontend con HTML, CSS y JavaScript. Mantenimiento de código legacy y corrección de bugs. Participación en procesos de QA y testing.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎓 Formación Académica</h2>
+
+            <div class="experience-item">
+                <div class="job-title">Grado en Ingeniería Informática</div>
+                <div class="company">Universidad Politécnica de Madrid (UPM)</div>
+                <div class="dates">2014 - 2018</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Certificación AWS Solutions Architect</div>
+                <div class="company">Amazon Web Services</div>
+                <div class="dates">2020</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Juan Carlos Rodríguez. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

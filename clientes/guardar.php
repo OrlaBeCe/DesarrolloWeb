@@ -6,19 +6,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $giro = $_POST['giro'];
         $razon_social = $_POST['razonsocial'];
 
-        $server = "localhost";
-        $user = "root";
-        $pass = "";
-        $bd = "MiPagina";
-
-        $conexion = new mysqli($server,$user,$pass,$bd);
- 
-        if($conexion->connect_error){
-            die("conexion fallida: " . $conexion->connect_error);
-        }
-        else{
-            echo "conexion exitosa";
-        }
+        include("../lib/conexion.php");
 
         $sql = "INSERT INTO clientes (Nombre, Domicilio, Giro, RazonSocial) VALUES ('".$nombre."','".$domicilio."','".$giro."','".$razon_social."')";
         if($conexion ->query($sql) === TRUE){

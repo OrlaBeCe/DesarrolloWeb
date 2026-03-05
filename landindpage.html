@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MexiMotix - Software POS para Talleres Mecánicos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header mejorado */
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
+            -webkit-background-clip: text;
+            font-family: Bauhaus 93, cursive;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 35px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b35;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #ff6b35;
+        }
+
+        /* Hero mejorado */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("taller.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 180px 20px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(102,126,234,0.1));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: whitesmoke;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
+            color: white;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255,107,53,0.6);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        section {
+            padding: 100px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Servicios - Nueva sección */
+        .servicios {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .servicios::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,107,53,0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .servicio-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .servicio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .servicio-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .servicio-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .servicio-card h3 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .servicio-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .servicio-card ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .servicio-card ul li {
+            color: #555;
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .servicio-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        /* Historia mejorada */
+        .historia {
+            background: white;
+        }
+
+        .historia-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .historia-text h3 {
+            color: #ff6b35;
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .historia-text h4 {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-align: justify;
+        }
+
+        .historia-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transition: transform 0.4s;
+        }
+
+        .historia-image:hover {
+            transform: scale(1.05);
+        }
+
+        .historia-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Quiénes somos mejorado */
+        .quienes-somos {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .quienes-somos .section-title {
+            color: white;
+        }
+
+        .quienes-somos .section-title::after {
+            background: white;
+        }
+
+        .quienes-somos .section-subtitle {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-box {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-15px);
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .feature-box h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .feature-box p {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.8;
+        }
+
+        /* Mapa mejorado */
+        .mapa {
+            background: #f9f9f9;
+        }
+
+        .mapa-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .mapa-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contacto mejorado */
+        .contacto {
+            background: white;
+        }
+
+        .contacto-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .contacto-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .contacto-info h3 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .contacto-info p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .contacto-info strong {
+            color: #ff6b35;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contacto-form {
+            background: #f9f9f9;
+            padding: 50px;
+            border-radius: 20px;
+        }
+
+        .contacto-form input,
+        .contacto-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .contacto-form input:focus,
+        .contacto-form textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+        }
+
+        .contacto-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contacto-form button {
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Footer mejorado */
+        footer {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .historia-content,
+            .contacto-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero h2 {
+                font-size: 22px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .servicios-grid,
+            .features {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero h2 {
+                font-size: 18px;
+            }
+
+            .btn {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .contacto-info,
+            .contacto-form {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">MexiMotix</div>
+            <nav>
+                <a href="#servicios">Servicios</a>
+                <a href="#historia">Historia</a>
+                <a href="#quienes">Quiénes Somos</a>
+                <a href="#mapa">Ubicación</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>MexiMotix</h1>
+            <h2>Software POS Administrativo para Talleres Mecánicos</h2>
+            <a href="#contacto" class="btn">Solicita una Demo</a>
+        </div>
+    </section>
+
+    <!-- Servicios - Nueva Sección -->
+    <section class="servicios" id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p class="section-subtitle">Soluciones completas para la gestión integral de tu taller mecánico</p>
+            
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <span class="servicio-icon">📊</span>
+                    <h3>Sistema POS Completo</h3>
+                    <p>Sistema punto de venta diseñado específicamente para talleres mecánicos con todas las funcionalidades que necesitas.</p>
+                    <ul>
+                        <li>Facturación electrónica</li>
+                        <li>Control de inventario</li>
+                        <li>Gestión de caja</li>
+                        <li>Reportes en tiempo real</li>
+                    </ul>
+                </div>
+
+                <div class="servicio-card">
+                    <span class="servicio-icon">🔧</span>
+                    <h3>Gestión de Órdenes de Servicio</h3>
+                    <p>Administra y da seguimiento a todas las reparaciones y servicios de manera eficiente.</p>
+                    <ul>
+                        <li>Registro de servicios</li>
+                        <li>Seguimiento de trabajos</li>
+                        <li>Historial de vehículos</li>
+                        <li>Cotizaciones digitales</li>
+                    </ul>
+                </div>
+
+                <div class="servicio-card">
+                    <span class="servicio-icon">👥</span>
+                    <h3>Gestión de Clientes</h3>
+                    <p>Mantén una base de datos completa de tus clientes y sus vehículos.</p>
+                    <ul>
+                        <li>Ficha de clientes</li>
+                        <li>Historial de servicios</li>
+                        <li>Recordatorios automáticos</li>
+                        <li>Programa de lealtad</li>
+                    </ul>
+                </div>
+
+                <div class="servicio-card">
+                    <span class="servicio-icon">📦</span>
+                    <h3>Control de Inventario</h3>
+                    <p>Gestión inteligente de refacciones y suministros de tu taller.</p>
+                    <ul>
+                        <li>Stock en tiempo real</li>
+                        <li>Alertas de reabastecimiento</li>
+                        <li>Control de proveedores</li>
+                        <li>Códigos de barras</li>
+                    </ul>
+                </div>
+
+                <div class="servicio-card">
+                    <span class="servicio-icon">💰</span>
+                    <h3>Reportes Financieros</h3>
+                    <p>Análisis detallado del rendimiento financiero de tu negocio.</p>
+                    <ul>
+                        <li>Ventas diarias/mensuales</li>
+                        <li>Análisis de rentabilidad</li>
+                        <li>Gastos y egresos</li>
+                        <li>Gráficas y estadísticas</li>
+                    </ul>
+                </div>
+
+                <div class="servicio-card">
+                    <span class="servicio-icon">☁️</span>
+                    <h3>Acceso en la Nube</h3>
+                    <p>Accede a tu información desde cualquier lugar y dispositivo.</p>
+                    <ul>
+                        <li>Acceso 24/7</li>
+                        <li>Respaldo automático</li>
+                        <li>Multi-dispositivo</li>
+                        <li>Seguridad garantizada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Historia -->
+    <section class="historia" id="historia">
+        <div class="container">
+            <h2 class="section-title">Nuestra Historia</h2>
+            <p class="section-subtitle">Comprometidos con la innovación tecnológica en el sector automotriz</p>
+            
+            <div class="historia-content">
+                <div class="historia-text">
+                    <h3>Desde 2020, Innovando en el Sector Automotriz</h3>
+                    <h4>MexiMotix nació de la necesidad de simplificar la gestión administrativa en talleres mecánicos. 
+                    Con más de 3 años de experiencia, hemos ayudado a cientos de talleres a optimizar sus operaciones 
+                    y aumentar su rentabilidad.</h4>
+                    <h4>Nuestra misión es proporcionar herramientas tecnológicas que permitan a los talleres mecánicos 
+                    concentrarse en lo que mejor hacen: mantener vehículos en perfecto estado.</h4>
+                </div>
+                <div class="historia-image">
+                    <img src="meximotix.jpg" alt="MexiMotix Software">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiénes Somos -->
+    <section class="quienes-somos" id="quienes">
+        <div class="container">
+            <h2 class="section-title">¿Quiénes Somos?</h2>
+            <p class="section-subtitle">Un equipo apasionado por la tecnología y el éxito de tu negocio</p>
+            
+            <div class="features">
+                <div class="feature-box">
+                    <h4>🎯 Expertos</h4>
+                    <p>Equipo de profesionales con experiencia en software y en la industria automotriz.</p>
+                </div>
+                <div class="feature-box">
+                    <h4>💡 Innovadores</h4>
+                    <p>Desarrollamos soluciones tecnológicas modernas y escalables para tu negocio.</p>
+                </div>
+                <div class="feature-box">
+                    <h4>🤝 Comprometidos</h4>
+                    <p>Nuestro compromiso es tu éxito con soporte técnico excepcional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa -->
+    <section class="mapa" id="mapa">
+        <div class="container">
+            <h2 class="section-title">Nuestra Ubicación</h2>
+            <p class="section-subtitle">Visítanos en Tepatitlán de Morelos, Jalisco</p>
+            
+            <div class="mapa-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d466.17658649541994!2d-102.77308162287954!3d20.815035144401804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x84292742b5eb4b77%3A0x84ae6b5410564128!2sLUMMA%20CENTER%2C%20PUNTO%20COMERCIAL%20EMPRESARIAL!5e0!3m2!1ses!2smx!4v1771276121186!5m2!1ses!2smx" 
+                        loading="lazy" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <p class="section-subtitle">¿Listo para transformar tu taller? Contáctanos hoy</p>
+            
+            <div class="contacto-content">
+                <div class="contacto-info">
+                    <h3>Información de Contacto</h3>
+                    <p>
+                        <strong>Teléfono:</strong>
+                        +52 378 159 1649
+                    </p>
+                    <p>
+                        <strong>Email:</strong>
+                        info@meximotix.com
+                    </p>
+                    <p>
+                        <strong>Dirección:</strong>
+                        Calle Morelos 722, San Antonio El Alto, 47640 Tepatitlán de Morelos, Jal.
+                    </p>
+                    <p>
+                        <strong>Horario:</strong>
+                        Lunes a Viernes 9:00 AM - 6:00 PM
+                    </p>
+                </div>
+                <form class="contacto-form">
+                    <input type="text" placeholder="Tu nombre" required>
+                    <input type="email" placeholder="Tu email" required>
+                    <input type="text" placeholder="Asunto">
+                    <textarea placeholder="Tu mensaje" required></textarea>
+                    <button type="submit" class="btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 MexiMotix. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
