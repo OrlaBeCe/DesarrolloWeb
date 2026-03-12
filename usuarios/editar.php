@@ -2,8 +2,8 @@
 session_start();
 // Redirige si no existe una sesión activa
 if (!isset($_SESSION["usuario"])) {
-    // header("Location: login.php");
-    // exit();
+        header("Location: ../login2.php");
+        exit();
 }
 
 // Conexión a la base de datos
@@ -20,11 +20,11 @@ if (isset($_GET["id"])) {
     if ($result->num_rows > 0) {
         $usuario = $result->fetch_assoc();
     } else {
-        echo "Usuario no encontrado.";
+        header('Location: index.php?error=usuario_no_encontrado');
         exit();
     }
 } else {
-    echo "ID de usuario no proporcionado.";
+    header('Location: index.php?error=id_no_proporcionado');
     exit();
 }
 ?>
@@ -242,11 +242,15 @@ if (isset($_GET["id"])) {
             </div>
         <?php endif; ?>
         
-        <form method="POST" action="procesar_editar.php">
+        <form method="POST" action="update.php">
             <input type="hidden" name="id" value="<?php echo $usuario['id']; ?>">
             
+            <div class="form-group" type="hidden">
+                <input type="hidden" id="id" name="id" value="<?php echo htmlspecialchars($usuario['id']); ?>" required>
+            </div>
+
             <div class="form-group">
-                <label for="nombre">Nombre:</label>
+                <label for="nombre" >Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" required>
             </div>
             

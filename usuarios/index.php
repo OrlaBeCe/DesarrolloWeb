@@ -186,6 +186,17 @@ $conexion->close();
             color: #9ca3af;
         }
 
+        .mensaje-exito {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .sin-datos svg {
             width: 80px;
             height: 80px;
@@ -247,6 +258,15 @@ $conexion->close();
             <h1>👥 Gestión de Usuarios</h1>
             <a href="../usuarios/nuevo.php" class="btn-nuevo">+ Nuevo Usuario</a>
         </div>
+        
+        <?php if (isset($_SESSION["mensaje"])): ?>
+            <div class="mensaje-exito">
+                <?php 
+                    echo $_SESSION["mensaje"]; 
+                    unset($_SESSION["mensaje"]);
+                ?>
+            </div>
+        <?php endif; ?>
 
         <div class="content">
             <div class="filtros">
@@ -278,15 +298,14 @@ $conexion->close();
                                     <td><?php echo htmlspecialchars($usuario['correo']); ?></td>
                                     <td><?php echo $usuario['es_admin'] ? 'Admin' : 'Usuario'; ?></td>
                                     <td>
-                                       <div class="acciones">
+                                        <div class="acciones">
                                         <a href="ver.php?id=<?php echo $usuario['id']; ?>" class="btn-accion btn-ver">
                                             <i class="fas fa-eye"></i> Ver
                                         </a>
                                         <a href="editar.php?id=<?php echo $usuario['id']; ?>" class="btn-accion btn-editar">
                                             <i class="fas fa-edit"></i> Editar
                                         </a>
-                                        <form method="POST" style="display: inline;" onsubmit="return confirm('¿Eliminar este usuario?');">
-                                            <input type="hidden" name="action" value="eliminar">
+                                        <form method="POST" action="eliminar.php" style="display: inline;" onsubmit="return confirm('¿Eliminar este usuario?');">                                           
                                             <input type="hidden" name="id" value="<?php echo $usuario['id']; ?>">
                                             <button type="submit" class="btn-accion btn-eliminar">
                                                 <i class="fas fa-trash"></i> Eliminar
