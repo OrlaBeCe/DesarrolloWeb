@@ -14,14 +14,15 @@ if ($resultado) {
     $clientes = $resultado->fetch_all(MYSQLI_ASSOC);
 }
 $conexion->close();
-
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Meximotix</title>
+    <title>Gestión de Clientes - Meximotix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -31,121 +32,111 @@ $conexion->close();
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            background: linear-gradient(135deg, #f5f5f5 0%, #efefef 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        /* HEADER */
-        header {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-left: 6px solid #ff6b35; /* Acorde al dashboard */
+        }
+
+        .header {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: white;
-            padding: 20px 40px;
+            padding: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             border-bottom: 4px solid #ff6b35;
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo {
+        .header h1 {
             font-size: 28px;
-            font-weight: bold;
-            color: #ff6b35;
+            font-weight: 600;
+            color: #ff6b35; /* Elementos naranjas */
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .page-title {
-            font-size: 20px;
-            color: #e8e8e8;
-            border-left: 3px solid #ffd60a;
-            padding-left: 15px;
+        .header h1 i {
+            color: #ffd60a; /* Elementos dorados */
         }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-info {
-            text-align: right;
-            font-size: 14px;
-        }
-
-        /* CONTENEDOR PRINCIPAL */
-        .container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        /* SIDEBAR */
-        aside {
-            width: 280px;
-            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
-            padding: 30px 0;
-            overflow-y: auto;
-            border-right: 4px solid #ff6b35;
-            box-shadow: 4px 0 8px rgba(0,0,0,0.2);
-        }
-
-        .menu-section {
-            margin-bottom: 30px;
-        }
-
-        .menu-title {
-            color: #ffd60a;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 0 20px 15px;
-            letter-spacing: 1px;
-            border-bottom: 2px solid #ff6b35;
-            margin: 0 15px 15px;
-        }
-
-        .menu-item {
-            padding: 12px 25px;
-            color: #d0d0d0;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s ease;
+        .btn-nuevo {
+            background: linear-gradient(135deg, #ff6b35 0%, #ffd60a 100%);
+            color: #1a1a1a;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            border-left: 4px solid transparent;
-            margin: 5px 0;
-        }
-.table-responsive {
-            overflow-x: auto;
-        }
-        .menu-item:hover {
-            background: rgba(255, 107, 53, 0.2);
-            color: #ff6b35;
-            border-left-color: #ff6b35;
-            padding-left: 35px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .menu-item.active {
-            background: rgba(255, 107, 53, 0.3);
-            color: #ffd60a;
-            border-left-color: #ffd60a;
+        .btn-nuevo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
+            color: #000;
         }
 
-        /* CONTENIDO CENTRAL */
-       .content {
+        .content {
             padding: 30px;
             background: #ffffff;
         }
-.btn-accion {
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #2d2d2d;
+            color: #e8e8e8;
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 2px solid #ff6b35;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 107, 53, 0.05); /* Efecto hover tenue del color de marca */
+        }
+
+        .acciones {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-accion {
             padding: 8px 12px;
             border: none;
             border-radius: 6px;
@@ -211,209 +202,35 @@ $conexion->close();
             gap: 10px;
             border-left: 4px solid #10b981;
         }
-        .main-area {
-            flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-            background: linear-gradient(135deg, #f5f5f5 0%, #efefef 100%);
-        }
 
-        .welcome-section {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            border-left: 6px solid #ff6b35;
-            margin-bottom: 30px;
-        }
-
-        .welcome-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .welcome-header h2 {
-            color: #1a1a1a;
-            font-size: 32px;
-        }
-.main-area {
-
-            margin: 0 auto;
-            
-        }
-        .welcome-header .badge {
-            background: linear-gradient(135deg, #ff6b35 0%, #ffd60a 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        td {
-            padding: 16px;
-            border-bottom: 1px solid #e5e7eb;
-            color: #374151;
-            font-size: 14px;
-        }
-.header2 {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: white;
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid #ff6b35;
-        }
-
-        .header2 h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #ff6b35; /* Elementos naranjas */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .header2 h1 i {
-            color: #ffd60a; /* Elementos dorados */
-        }
-        .company-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .info-text h3 {
-            color: #ff6b35;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .info-text p {
-            color: #666;
-            line-height: 1.8;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .features {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .feature-tag {
-            background: #ffd60a;
-            color: #1a1a1a;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .company-image {
-            background: linear-gradient(135deg, #ff6b35 0%, #d94e1f 100%);
-            border-radius: 12px;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 64px;
-            box-shadow: 0 8px 16px rgba(255, 107, 53, 0.3);
-        }
-.btn-nuevo {
-            background: linear-gradient(135deg, #ff6b35 0%, #ffd60a 100%);
-            color: #1a1a1a;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-nuevo:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
-            color: #000;
-        }
-        /* FOOTER */
-        footer {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #d0d0d0;
-            padding: 25px 40px;
-            text-align: center;
-            border-top: 4px solid #ff6b35;
-            font-size: 13px;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-left {
-            text-align: left;
-        }
-
-        .footer-right {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-link {
-            color: #ff6b35;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-link:hover {
-            color: #ffd60a;
-        }
-
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            aside {
-                width: 100%;
-                border-right: none;
-                border-bottom: 4px solid #ff6b35;
-            }
-
-            .company-info {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
+            .header {
                 flex-direction: column;
                 gap: 15px;
+            }
+
+            .acciones {
+                flex-direction: column;
+            }
+
+            .btn-accion {
+                width: 100%;
+                justify-content: center;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 12px 8px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-   <?php include '../templates/header.php'; ?>
-
-    <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
-        <!-- SIDEBAR -->
-        
-        <?php include '../templates/sidebar.php'; ?>
-        <!-- CONTENIDO CENTRAL -->
-         <div class="main-area"> 
-        <div class="header2">
+        <div class="header">
             <!-- Icono opcional y título con diseño inspirado en Dashboard -->
             <h1><i class="fas fa-users"></i> Gestión de Clientes</h1>
             <a href="nuevo.php" class="btn-nuevo">+ Nuevo Cliente</a>
@@ -502,8 +319,5 @@ endif; ?>
             </div>
         </div>
     </div>
-    </div>
-    <!-- FOOTER -->
-    <?php include '../templates/footer.php'; ?>
 </body>
 </html>

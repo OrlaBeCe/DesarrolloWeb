@@ -100,6 +100,7 @@
             <p>Inicia sesión en tu cuenta</p>
         </div>
         <form class="login-form" action="verificacion.php" method="POST">
+            <input type="hidden" name="origen" value="admin">
             <div class="form-group">
                 <label for="email" class="form-label">Correo Electrónico</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="tu@email.com" required>

@@ -2,8 +2,8 @@
 session_start();
 // Redirige si no existe una sesión activa
 if (!isset($_SESSION["usuario"])) {
-        header("Location: ../login2.php");
-        exit();
+    header("Location: ../login2.php");
+    exit();
 }
 
 // Conexión a la base de datos
@@ -16,33 +16,34 @@ if (isset($_GET["id"])) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows > 0) {
         $usuario = $result->fetch_assoc();
-    } else {
+    }
+    else {
         header('Location: index.php?error=usuario_no_encontrado');
         exit();
     }
-} else {
+}
+else {
     header('Location: index.php?error=id_no_proporcionado');
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información del Usuario</title>
+    <title>Dashboard - Meximotix</title>
     <style>
         :root {
-            --primary-color: #667eea;
-            --primary-hover: #5a6fd6;
-            --bg-gradient-1: #667eea;
-            --bg-gradient-2: #764ba2;
-            --text-main: #2d3748;
-            --text-muted: #718096;
-            --input-bg: #f7fafc;
+            --primary-color: #ff6b35;
+            --primary-hover: #e55a2b;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --input-bg: #f8f9fa;
             --input-border: #e2e8f0;
         }
 
@@ -53,25 +54,179 @@ if (isset($_GET["id"])) {
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border-bottom: 4px solid #ff6b35;
+        }
+
+        .header-left {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            gap: 20px;
         }
 
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b35;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .page-title {
+            font-size: 20px;
+            color: #e8e8e8;
+            border-left: 3px solid #ffd60a;
+            padding-left: 15px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            text-align: right;
+            font-size: 14px;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
         .container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-            max-width: 480px;
-            width: 100%;
-            padding: 40px;
+            display: flex;
+            flex: 1;
+            overflow: hidden;
         }
 
-        .header {
+        /* SIDEBAR */
+        aside {
+            width: 280px;
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            padding: 30px 0;
+            overflow-y: auto;
+            border-right: 4px solid #ff6b35;
+            box-shadow: 4px 0 8px rgba(0,0,0,0.2);
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-title {
+            color: #ffd60a;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0 20px 15px;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #ff6b35;
+            margin: 0 15px 15px;
+        }
+
+        .menu-item {
+            padding: 12px 25px;
+            color: #d0d0d0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            margin: 5px 0;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 107, 53, 0.2);
+            color: #ff6b35;
+            border-left-color: #ff6b35;
+            padding-left: 35px;
+        }
+
+        .menu-item.active {
+            background: rgba(255, 107, 53, 0.3);
+            color: #ffd60a;
+            border-left-color: #ffd60a;
+        }
+
+        /* CONTENIDO CENTRAL */
+        .content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: #fdfdfd;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .card {
+            background: white;
+            width: 100%;
+            
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-top: 6px solid var(--primary-color);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .main-area {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #f5f5f5 0%, #efefef 100%);
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border-left: 6px solid #ff6b35;
+            margin-bottom: 30px;
+        }
+
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-header h2 {
+            color: #1a1a1a;
+            font-size: 32px;
+        }
+
+        .welcome-header .badge {
+            background: linear-gradient(135deg, #ff6b35 0%, #ffd60a 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+.header {
             margin-bottom: 35px;
             text-align: center;
         }
@@ -99,7 +254,6 @@ if (isset($_GET["id"])) {
             color: var(--text-muted);
             font-size: 15px;
         }
-
         .info-group {
             margin-bottom: 22px;
         }
@@ -113,8 +267,7 @@ if (isset($_GET["id"])) {
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
-        .data-value {
+         .data-value {
             width: 100%;
             padding: 14px 16px;
             background-color: var(--input-bg);
@@ -124,7 +277,6 @@ if (isset($_GET["id"])) {
             color: var(--text-main);
             font-weight: 500;
         }
-
         .badge-admin {
             display: inline-block;
             padding: 6px 12px;
@@ -145,6 +297,11 @@ if (isset($_GET["id"])) {
             font-weight: 600;
         }
 
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+        }
         .form-actions {
             display: flex;
             justify-content: center;
@@ -172,44 +329,175 @@ if (isset($_GET["id"])) {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
+        
+        .company-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .info-text h3 {
+            color: #ff6b35;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .info-text p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .feature-tag {
+            background: #ffd60a;
+            color: #1a1a1a;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .company-image {
+            background: linear-gradient(135deg, #ff6b35 0%, #d94e1f 100%);
+            border-radius: 12px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 64px;
+            box-shadow: 0 8px 16px rgba(255, 107, 53, 0.3);
+        }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #d0d0d0;
+            padding: 25px 40px;
+            text-align: center;
+            border-top: 4px solid #ff6b35;
+            font-size: 13px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: #ff6b35;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #ffd60a;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                border-right: none;
+                border-bottom: 4px solid #ff6b35;
+            }
+
+            .company-info {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Detalles del Usuario</h1>
-            <p>Información registrada en el sistema</p>
-        </div>
-        
-        <div class="info-group">
-            <span class="info-label">ID de Usuario</span>
-            <div class="data-value"><?php echo htmlspecialchars($usuario['id']); ?></div>
-        </div>
+    <!-- HEADER -->
+   <?php include '../templates/header.php'; ?>
 
-        <div class="info-group">
-            <span class="info-label">Nombre Completo</span>
-            <div class="data-value"><?php echo htmlspecialchars($usuario['nombre']); ?></div>
-        </div>
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="container">
+        <!-- SIDEBAR -->
         
-        <div class="info-group">
-            <span class="info-label">Correo Electrónico</span>
-            <div class="data-value"><?php echo htmlspecialchars($usuario['correo']); ?></div>
-        </div>
-        
-        <div class="info-group">
-            <span class="info-label">Rol en el sistema</span>
-            <div style="margin-top: 8px;">
-                <?php if ($usuario['es_admin'] == 1): ?>
-                    <span class="badge-admin">Administrador</span>
-                <?php else: ?>
-                    <span class="badge-user">Usuario</span>
-                <?php endif; ?>
+        <?php include '../templates/sidebar.php'; ?>
+        <!-- CONTENIDO CENTRAL -->
+        <div class="content">
+            <div class="card">
+                <div class="header">
+                    <div class="header-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h1>Detalles del Usuario</h1>
+                    <p>Información detallada registrada en el sistema</p>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-group">
+                        <span class="info-label">ID de Usuario</span>
+                        <div class="data-value"><?php echo htmlspecialchars($usuario['id']); ?></div>
+                    </div>
+
+                    <div class="info-group">
+                        <span class="info-label">Nombre Completo</span>
+                        <div class="data-value"><?php echo htmlspecialchars($usuario['nombre']); ?></div>
+                    </div>
+                    
+                    <div class="info-group">
+                        <span class="info-label">Correo Electrónico</span>
+                        <div class="data-value"><?php echo htmlspecialchars($usuario['correo']); ?></div>
+                    </div>
+                    
+                    <div class="info-group">
+                        <span class="info-label">Rol en el sistema</span>
+                        <div style="margin-top: 8px;">
+                            <?php if ($usuario['es_admin'] == 1): ?>
+                                <span class="badge-admin">Administrador</span>
+                            <?php
+else: ?>
+                                <span class="badge-user">Usuario</span>
+                            <?php
+endif; ?>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-primary" onclick="window.location.href='index.php'">Volver a la lista</button>
+                </div>
             </div>
         </div>
-        
-        <div class="form-actions">
-            <button type="button" class="btn-primary" onclick="window.location.href='index.php'">Volver a la lista</button>
-        </div>
     </div>
+
+    <!-- FOOTER -->
+    <?php include '../templates/footer.php'; ?>
 </body>
+
 </html>

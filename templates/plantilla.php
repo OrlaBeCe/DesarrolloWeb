@@ -277,13 +277,13 @@
 </head>
 <body>
     <!-- HEADER -->
-   <?php include 'templates/header.php'; ?>
+   <?php include 'header.php'; ?>
 
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
         <!-- SIDEBAR -->
         
-        <?php include 'templates/sidebar.php'; ?>
+        <?php include 'sidebar.php'; ?>
         <!-- CONTENIDO CENTRAL -->
         <div class="content">
             <div class="main-area">
@@ -321,6 +321,6 @@
     </div>
 
     <!-- FOOTER -->
-    <?php include 'templates/footer.php'; ?>
+    <?php include 'footer.php'; ?>
 </body>
 </html>

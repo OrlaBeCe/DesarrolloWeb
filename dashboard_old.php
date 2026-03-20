@@ -277,13 +277,52 @@
 </head>
 <body>
     <!-- HEADER -->
-   <?php include 'templates/header.php'; ?>
+    <header>
+        <div class="header-left">
+            <div class="logo">🏢 MEXIMOTIX</div>
+            <div class="page-title">Dashboard</div>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <p><strong>Usuario:</strong> Admin</p>
+                <p style="font-size: 12px; color: #999;">Conectado</p>
+            </div>
+        </div>
+    </header>
 
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
         <!-- SIDEBAR -->
-        
-        <?php include 'templates/sidebar.php'; ?>
+        <aside>
+            <div class="menu-section">
+                <div class="menu-title">Principal</div>
+                <a href="#inicio" class="menu-item active">📊 Inicio</a>
+                <a href="#dashboard" class="menu-item">📈 Dashboard</a>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-title">Gestión</div>
+                <a href="#productos" class="menu-item">📦 Productos</a>
+                <a href="#pedidos" class="menu-item">🛒 Pedidos</a>
+                <a href="#clientes" class="menu-item">👥 Clientes</a>
+                <a href="#inventario" class="menu-item">📋 Inventario</a>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-title">Reportes</div>
+                <a href="#reportes" class="menu-item">📄 Reportes</a>
+                <a href="#estadisticas" class="menu-item">📉 Estadísticas</a>
+                <a href="#analisis" class="menu-item">🔍 Análisis</a>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-title">Configuración</div>
+                <a href="#perfil" class="menu-item">⚙️ Configuración</a>
+                <a href="#usuarios" class="menu-item">👤 Usuarios</a>
+                <a href="#salir" class="menu-item">🚪 Cerrar Sesión</a>
+            </div>
+        </aside>
+
         <!-- CONTENIDO CENTRAL -->
         <div class="content">
             <div class="main-area">
@@ -321,6 +360,18 @@
     </div>
 
     <!-- FOOTER -->
-    <?php include 'templates/footer.php'; ?>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>&copy; 2024 <strong>Meximotix</strong> | Todos los derechos reservados</p>
+                <p style="font-size: 11px; margin-top: 5px;">Soluciones Tecnológicas y Automotrices</p>
+            </div>
+            <div class="footer-right">
+                <a href="#" class="footer-link">Privacidad</a>
+                <a href="#" class="footer-link">Términos de Servicio</a>
+                <a href="#" class="footer-link">Contacto</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
