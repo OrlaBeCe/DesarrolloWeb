@@ -1,5 +1,10 @@
 <?php
-
+session_start();
+// Redirige si no existe una sesión activa
+if (!isset($_SESSION["usuario"])) {
+    header("Location: ../login2.php");
+    exit();
+}
 
 ?>
 <!DOCTYPE html>
