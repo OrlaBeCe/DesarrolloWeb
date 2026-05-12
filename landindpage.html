@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +12,16 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
+            background-color: #fcfcfc;
         }
 
         /* Header mejorado */
@@ -26,7 +32,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
 
         .navbar {
@@ -57,7 +63,7 @@
             position: relative;
         }
 
-        nav a::after {
+        nav a:not(.btn-login)::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -68,17 +74,38 @@
             transition: width 0.3s;
         }
 
-        nav a:hover::after {
+        nav a:not(.btn-login):hover::after {
             width: 100%;
         }
 
-        nav a:hover {
+        nav a:not(.btn-login):hover {
             color: #ff6b35;
+        }
+
+        .btn-login {
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
+            color: white !important;
+            padding: 10px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
+            display: inline-block;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+            background: rgba(255, 107, 53, 0.1);
+            border-color: #ff6b35;
+            color: #ff6b35 !important;
         }
 
         /* Hero mejorado */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("taller.jpeg");
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("taller.jpeg");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -95,7 +122,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(102,126,234,0.1));
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(102, 126, 234, 0.1));
         }
 
         .hero-content {
@@ -113,7 +140,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero h2 {
@@ -121,7 +148,7 @@
             margin-bottom: 40px;
             color: whitesmoke;
             font-weight: 300;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .btn {
@@ -133,14 +160,14 @@
             border-radius: 50px;
             transition: all 0.3s;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(255,107,53,0.6);
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.6);
         }
 
         .container {
@@ -199,7 +226,7 @@
             right: -10%;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(255,107,53,0.1), transparent);
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1), transparent);
             border-radius: 50%;
         }
 
@@ -216,7 +243,7 @@
             background: white;
             padding: 40px 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.4s;
             position: relative;
             overflow: hidden;
@@ -240,7 +267,7 @@
 
         .servicio-card:hover {
             transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         .servicio-icon {
@@ -312,7 +339,7 @@
         .historia-image {
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             transition: transform 0.4s;
         }
 
@@ -341,7 +368,7 @@
         }
 
         .quienes-somos .section-subtitle {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .features {
@@ -352,19 +379,19 @@
         }
 
         .feature-box {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 40px 30px;
             border-radius: 20px;
             text-align: center;
             transition: all 0.4s;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .feature-box:hover {
             transform: translateY(-15px);
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
 
         .feature-box h4 {
@@ -375,7 +402,7 @@
         }
 
         .feature-box p {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.8;
         }
 
@@ -390,7 +417,7 @@
             border-radius: 20px;
             overflow: hidden;
             margin-top: 40px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .mapa-container iframe {
@@ -459,7 +486,7 @@
         .contacto-form textarea:focus {
             outline: none;
             border-color: #ff6b35;
-            box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
         }
 
         .contacto-form textarea {
@@ -554,6 +581,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -563,8 +591,83 @@
         .fade-in-up {
             animation: fadeInUp 0.6s ease-out;
         }
+
+        /* WIDGETS */
+        .info-vivo {
+            background: #fcfcfc;
+            padding: 40px 20px 0 20px;
+        }
+
+        .widgets-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .widget {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-top: 4px solid #ffd60a;
+            transition: transform 0.3s ease;
+        }
+
+        .widget:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .widget-icon {
+            font-size: 35px;
+            background: #fff9db;
+            min-width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #f59f00;
+        }
+
+        .widget-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .widget-info h4 {
+            color: #666;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .widget-info .data-val {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        .widget-info .data-sub {
+            font-size: 13px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .widgets-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -576,6 +679,7 @@
                 <a href="#quienes">Quiénes Somos</a>
                 <a href="#mapa">Ubicación</a>
                 <a href="#contacto">Contacto</a>
+                <a href="login2.php" class="btn-login">Iniciar Sesión</a>
             </nav>
         </div>
     </header>
@@ -589,17 +693,45 @@
         </div>
     </section>
 
+    <!-- Información en Vivo -->
+    <section class="info-vivo">
+        <div class="container">
+            <div class="widgets-container">
+                <!-- Widget Clima -->
+                <div class="widget">
+                    <div class="widget-icon">⛅</div>
+                    <div class="widget-info">
+                        <h4>Clima en Tepatitlán de Morelos</h4>
+                        <div class="data-val" id="weather-val">Cargando...</div>
+                        <div class="data-sub" id="weather-sub">Obteniendo datos meteorológicos...</div>
+                    </div>
+                </div>
+
+                <!-- Widget Dólar -->
+                <div class="widget">
+                    <div class="widget-icon">💵</div>
+                    <div class="widget-info">
+                        <h4>Tipo de Cambio</h4>
+                        <div class="data-val" id="dolar-val">Cargando...</div>
+                        <div class="data-sub" id="dolar-sub">Obteniendo tipo de cambio...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Servicios - Nueva Sección -->
     <section class="servicios" id="servicios">
         <div class="container">
             <h2 class="section-title">Nuestros Servicios</h2>
             <p class="section-subtitle">Soluciones completas para la gestión integral de tu taller mecánico</p>
-            
+
             <div class="servicios-grid">
                 <div class="servicio-card">
                     <span class="servicio-icon">📊</span>
                     <h3>Sistema POS Completo</h3>
-                    <p>Sistema punto de venta diseñado específicamente para talleres mecánicos con todas las funcionalidades que necesitas.</p>
+                    <p>Sistema punto de venta diseñado específicamente para talleres mecánicos con todas las
+                        funcionalidades que necesitas.</p>
                     <ul>
                         <li>Facturación electrónica</li>
                         <li>Control de inventario</li>
@@ -676,15 +808,16 @@
         <div class="container">
             <h2 class="section-title">Nuestra Historia</h2>
             <p class="section-subtitle">Comprometidos con la innovación tecnológica en el sector automotriz</p>
-            
+
             <div class="historia-content">
                 <div class="historia-text">
                     <h3>Desde 2020, Innovando en el Sector Automotriz</h3>
-                    <h4>MexiMotix nació de la necesidad de simplificar la gestión administrativa en talleres mecánicos. 
-                    Con más de 3 años de experiencia, hemos ayudado a cientos de talleres a optimizar sus operaciones 
-                    y aumentar su rentabilidad.</h4>
-                    <h4>Nuestra misión es proporcionar herramientas tecnológicas que permitan a los talleres mecánicos 
-                    concentrarse en lo que mejor hacen: mantener vehículos en perfecto estado.</h4>
+                    <h4>MexiMotix nació de la necesidad de simplificar la gestión administrativa en talleres mecánicos.
+                        Con más de 3 años de experiencia, hemos ayudado a cientos de talleres a optimizar sus
+                        operaciones
+                        y aumentar su rentabilidad.</h4>
+                    <h4>Nuestra misión es proporcionar herramientas tecnológicas que permitan a los talleres mecánicos
+                        concentrarse en lo que mejor hacen: mantener vehículos en perfecto estado.</h4>
                 </div>
                 <div class="historia-image">
                     <img src="meximotix.jpg" alt="MexiMotix Software">
@@ -698,7 +831,7 @@
         <div class="container">
             <h2 class="section-title">¿Quiénes Somos?</h2>
             <p class="section-subtitle">Un equipo apasionado por la tecnología y el éxito de tu negocio</p>
-            
+
             <div class="features">
                 <div class="feature-box">
                     <h4>🎯 Expertos</h4>
@@ -721,11 +854,11 @@
         <div class="container">
             <h2 class="section-title">Nuestra Ubicación</h2>
             <p class="section-subtitle">Visítanos en Tepatitlán de Morelos, Jalisco</p>
-            
+
             <div class="mapa-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d466.17658649541994!2d-102.77308162287954!3d20.815035144401804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x84292742b5eb4b77%3A0x84ae6b5410564128!2sLUMMA%20CENTER%2C%20PUNTO%20COMERCIAL%20EMPRESARIAL!5e0!3m2!1ses!2smx!4v1771276121186!5m2!1ses!2smx" 
-                        loading="lazy" 
-                        allowfullscreen>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d466.17658649541994!2d-102.77308162287954!3d20.815035144401804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x84292742b5eb4b77%3A0x84ae6b5410564128!2sLUMMA%20CENTER%2C%20PUNTO%20COMERCIAL%20EMPRESARIAL!5e0!3m2!1ses!2smx!4v1771276121186!5m2!1ses!2smx"
+                    loading="lazy" allowfullscreen>
                 </iframe>
             </div>
         </div>
@@ -736,7 +869,7 @@
         <div class="container">
             <h2 class="section-title">Contacto</h2>
             <p class="section-subtitle">¿Listo para transformar tu taller? Contáctanos hoy</p>
-            
+
             <div class="contacto-content">
                 <div class="contacto-info">
                     <h3>Información de Contacto</h3>
@@ -772,5 +905,35 @@
     <footer>
         <p>&copy; 2024 MexiMotix. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        // Obtener clima Tepatitlán de Morelos (Lat: 20.8142, Lon: -102.7686)
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=20.8142&longitude=-102.7686&current_weather=true')
+            .then(res => res.json())
+            .then(data => {
+                const temp = data.current_weather.temperature;
+                const wind = data.current_weather.windspeed;
+                document.getElementById('weather-val').innerText = `${temp}°C`;
+                document.getElementById('weather-sub').innerText = `Viento: ${wind} km/h`;
+            })
+            .catch(err => {
+                document.getElementById('weather-val').innerText = 'N/A';
+                document.getElementById('weather-sub').innerText = 'Error al cargar';
+            });
+
+        // Obtener tipo de cambio USD a MXN
+        fetch('https://api.exchangerate-api.com/v4/latest/USD')
+            .then(res => res.json())
+            .then(data => {
+                const mxn = data.rates.MXN;
+                document.getElementById('dolar-val').innerText = `$${mxn.toFixed(2)}`;
+                document.getElementById('dolar-sub').innerText = '1 Dólar Estadounidense';
+            })
+            .catch(err => {
+                document.getElementById('dolar-val').innerText = 'N/A';
+                document.getElementById('dolar-sub').innerText = 'Error al cargar';
+            });
+    </script>
 </body>
+
 </html>

@@ -7,12 +7,7 @@ if (!isset($_SESSION["usuario"])) {
 }
 include("../lib/conexion.php");
 
-// Consultar los clientes
-$resultado = $conexion->query('SELECT * FROM clientes');
-$clientes = [];
-if ($resultado) {
-    $clientes = $resultado->fetch_all(MYSQLI_ASSOC);
-}
+// Módulo B: Todo se maneja por Fetch API
 $conexion->close();
 
 ?>
@@ -402,6 +397,39 @@ $conexion->close();
                 gap: 15px;
             }
         }
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-box h2 { margin-bottom: 20px; color: #1a1a1a; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #666; font-weight: bold; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn-cancelar { background: #e2e8f0; color: #4a5568; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
+        .btn-guardar { background: #ff6b35; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -431,7 +459,7 @@ $conexion->close();
                             <p>Lista general de clientes registrados en el sistema</p>
                         </div>
                     </div>
-                    <a href="nuevo.php" class="btn-nuevo">+ Nuevo Cliente</a>
+                    <button onclick="abrirModal('crear')" class="btn-nuevo">+ Nuevo Cliente</button>
                 </div>
 
                 <?php if (isset($_GET["mensaje"])): ?>
@@ -452,80 +480,207 @@ endif; ?>
 endif; ?>
 
                 <div class="table-responsive">
-                    <?php if (count($clientes) > 0): ?>
-                        <table id="tablaClientes">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Domicilio</th>
-                                    <th>Giro</th>
-                                    <th>Razón Social</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($clientes as $cliente):
-        // Extraer el ID seguro (asumiendo posibles nombres de columna)
-        $id_key = 'id';
-        if (isset($cliente['Id']))
-            $id_key = 'Id';
-        if (isset($cliente['ID']))
-            $id_key = 'ID';
-        if (isset($cliente['id_cliente']))
-            $id_key = 'id_cliente';
-        if (isset($cliente['IdCliente']))
-            $id_key = 'IdCliente';
-        $id_val = isset($cliente[$id_key]) ? $cliente[$id_key] : '';
-?>
-                                    <tr>
-                                        <td><strong><?php echo htmlspecialchars($id_val); ?></strong></td>
-                                        <td><?php echo isset($cliente['Nombre']) ? htmlspecialchars($cliente['Nombre']) : ''; ?></td>
-                                        <td><?php echo isset($cliente['Domicilio']) ? htmlspecialchars($cliente['Domicilio']) : ''; ?></td>
-                                        <td><span style="background: rgba(255, 214, 10, 0.2); padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #1a1a1a; font-weight: bold; text-transform: uppercase;"><?php echo isset($cliente['Giro']) ? htmlspecialchars($cliente['Giro']) : ''; ?></span></td>
-                                        <td><?php echo isset($cliente['RazonSocial']) ? htmlspecialchars($cliente['RazonSocial']) : ''; ?></td>
-                                        <td>
-                                            <div class="acciones" style="display: flex; gap: 8px;">
-                                                <a href="ver.php?id=<?php echo urlencode($id_val); ?>" class="btn-accion btn-ver" title="Ver detalle">
-                                                    Ver
-                                                </a>
-                                                <a href="editar.php?id=<?php echo urlencode($id_val); ?>" class="btn-accion btn-editar" title="Editar">
-                                                    Editar
-                                                </a>
-                                                <form method="POST" action="eliminar.php" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">                                           
-                                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($id_val); ?>">
-                                                    <button type="submit" class="btn-accion btn-eliminar" title="Eliminar">
-                                                        Eliminar
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php
-    endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php
-else: ?>
-                        <div class="sin-datos">
-                            <div style="font-size: 48px; color: #cbd5e0; margin-bottom: 20px;">
-                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <line x1="19" y1="8" x2="19" y2="14"></line>
-                                    <line x1="22" y1="11" x2="16" y2="11"></line>
-                                </svg>
-                            </div>
-                            <h3>No hay clientes registrados</h3>
-                            <p style="margin-top: 8px;">Haz clic en "Nuevo Cliente" para comenzar</p>
+                    <table id="tablaClientes">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Domicilio</th>
+                                <th>Giro</th>
+                                <th>Razón Social</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-body">
+                            <!-- Filas generadas por JS -->
+                        </tbody>
+                    </table>
+                    <div id="no-datos" class="sin-datos" style="display: none;">
+                        <div style="font-size: 48px; color: #cbd5e0; margin-bottom: 20px;">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <line x1="19" y1="8" x2="19" y2="14"></line>
+                                <line x1="22" y1="11" x2="16" y2="11"></line>
+                            </svg>
                         </div>
-                    <?php
-endif; ?>
+                        <h3>No hay clientes registrados</h3>
+                        <p style="margin-top: 8px;">Haz clic en "Nuevo Cliente" para comenzar</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- FOOTER -->
     <?php include '../templates/footer.php'; ?>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="clienteModal">
+        <div class="modal-box">
+            <h2 id="modalTitle">Nuevo Cliente</h2>
+            <form id="clienteForm">
+                <input type="hidden" id="clienteId">
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Domicilio:</label>
+                    <input type="text" id="domicilio" required>
+                </div>
+                <div class="form-group">
+                    <label>Giro:</label>
+                    <input type="text" id="giro" required>
+                </div>
+                <div class="form-group">
+                    <label>Razón Social:</label>
+                    <input type="text" id="razonSocial" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", cargarClientes);
+
+        function cargarClientes() {
+            fetch('api.php')
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById('tabla-body');
+                    const tabla = document.getElementById('tablaClientes');
+                    const noDatos = document.getElementById('no-datos');
+                    tbody.innerHTML = '';
+
+                    if (data.length === 0) {
+                        tabla.style.display = 'none';
+                        noDatos.style.display = 'block';
+                    } else {
+                        tabla.style.display = 'table';
+                        noDatos.style.display = 'none';
+                        data.forEach(c => {
+                            const id = c.Id || c.ID || c.id;
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td><strong>${id}</strong></td>
+                                <td>${c.Nombre || ''}</td>
+                                <td>${c.Domicilio || ''}</td>
+                                <td><span style="background: rgba(255, 214, 10, 0.2); padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #1a1a1a; font-weight: bold; text-transform: uppercase;">${c.Giro || ''}</span></td>
+                                <td>${c.RazonSocial || ''}</td>
+                                <td>
+                                    <div class="acciones" style="display: flex; gap: 8px;">
+                                        <button onclick="verCliente(${id})" class="btn-accion btn-ver" title="Ver detalle">Ver</button>
+                                        <button onclick="abrirModal('editar', ${id})" class="btn-accion btn-editar" title="Editar">Editar</button>
+                                        <button onclick="eliminarCliente(${id})" class="btn-accion btn-eliminar" title="Eliminar">Eliminar</button>
+                                    </div>
+                                </td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    }
+                })
+                .catch(err => console.error("Error cargando clientes:", err));
+        }
+
+        function abrirModal(modo, id = null) {
+            document.getElementById('clienteModal').classList.add('active');
+            const form = document.getElementById('clienteForm');
+            form.reset();
+
+            const inputs = form.querySelectorAll('input:not([type="hidden"])');
+            const btnGuardar = form.querySelector('.btn-guardar');
+
+            if (modo === 'ver') {
+                document.getElementById('modalTitle').innerText = 'Detalles del Cliente';
+                btnGuardar.style.display = 'none';
+                inputs.forEach(input => input.disabled = true);
+                
+                fetch(`api.php?id=${id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById('clienteId').value = data.Id || data.ID || data.id;
+                        document.getElementById('nombre').value = data.Nombre || '';
+                        document.getElementById('domicilio').value = data.Domicilio || '';
+                        document.getElementById('giro').value = data.Giro || '';
+                        document.getElementById('razonSocial').value = data.RazonSocial || '';
+                    });
+            } else if (modo === 'editar') {
+                document.getElementById('modalTitle').innerText = 'Editar Cliente';
+                btnGuardar.style.display = 'block';
+                inputs.forEach(input => input.disabled = false);
+
+                fetch(`api.php?id=${id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById('clienteId').value = data.Id || data.ID || data.id;
+                        document.getElementById('nombre').value = data.Nombre || '';
+                        document.getElementById('domicilio').value = data.Domicilio || '';
+                        document.getElementById('giro').value = data.Giro || '';
+                        document.getElementById('razonSocial').value = data.RazonSocial || '';
+                    });
+            } else {
+                document.getElementById('modalTitle').innerText = 'Nuevo Cliente';
+                document.getElementById('clienteId').value = '';
+                btnGuardar.style.display = 'block';
+                inputs.forEach(input => input.disabled = false);
+            }
+        }
+
+        function cerrarModal() {
+            document.getElementById('clienteModal').classList.remove('active');
+        }
+
+        document.getElementById('clienteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('clienteId').value;
+            const data = {
+                nombre: document.getElementById('nombre').value,
+                domicilio: document.getElementById('domicilio').value,
+                giro: document.getElementById('giro').value,
+                razon_social: document.getElementById('razonSocial').value
+            };
+
+            if (id) {
+                // Editar
+                data.id = id;
+                fetch('api.php', {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                }).then(() => {
+                    cerrarModal();
+                    cargarClientes();
+                });
+            } else {
+                // Crear
+                fetch('api.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                }).then(() => {
+                    cerrarModal();
+                    cargarClientes();
+                });
+            }
+        });
+
+        function eliminarCliente(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
+                fetch('api.php', {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({id: id})
+                }).then(() => cargarClientes());
+            }
+        }
+
+        function verCliente(id) {
+            abrirModal('ver', id);
+        }
+    </script>
 </body>
 </html>

@@ -14,6 +14,7 @@ $conexion->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +51,7 @@ $conexion->close();
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-bottom: 4px solid #ff6b35;
         }
 
@@ -59,11 +60,12 @@ $conexion->close();
             align-items: center;
             gap: 20px;
         }
+
         .logo {
             font-size: 28px;
             font-weight: bold;
             color: #ff6b35;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         /* PREMIUM TABLE STYLES */
@@ -132,7 +134,7 @@ $conexion->close();
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .rol-admin {
@@ -146,9 +148,11 @@ $conexion->close();
             color: #3730a3;
             border: 1px solid #c7d2fe;
         }
+
         .content {
             padding: 30px;
         }
+
         .filtros {
             display: flex;
             gap: 15px;
@@ -171,6 +175,7 @@ $conexion->close();
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
+
         .page-title {
             font-size: 20px;
             color: #e8e8e8;
@@ -183,7 +188,8 @@ $conexion->close();
             align-items: center;
             gap: 20px;
         }
-.header2 {
+
+        .header2 {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -226,6 +232,7 @@ $conexion->close();
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
         }
+
         .mensaje-exito {
             background-color: #d1fae5;
             color: #065f46;
@@ -237,8 +244,9 @@ $conexion->close();
             align-items: center;
             gap: 10px;
         }
+
         /* tr hover moved to premium table styles block */
-        
+
         .user-info {
             text-align: right;
             font-size: 14px;
@@ -258,7 +266,7 @@ $conexion->close();
             padding: 30px 0;
             overflow-y: auto;
             border-right: 4px solid #ff6b35;
-            box-shadow: 4px 0 8px rgba(0,0,0,0.2);
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
         }
 
         .menu-section {
@@ -319,7 +327,7 @@ $conexion->close();
             min-height: 100%;
             padding: 20px;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             border-top: 6px solid var(--primary-color);
         }
 
@@ -327,7 +335,7 @@ $conexion->close();
             background: white;
             border-radius: 12px;
             padding: 40px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             border-left: 6px solid #ff6b35;
             margin-bottom: 30px;
         }
@@ -359,6 +367,7 @@ $conexion->close();
             gap: 30px;
             align-items: center;
         }
+
         .acciones {
             display: flex;
             gap: 12px;
@@ -377,7 +386,7 @@ $conexion->close();
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
         }
 
         .btn-ver {
@@ -418,6 +427,7 @@ $conexion->close();
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
         }
+
         .info-text h3 {
             color: #ff6b35;
             font-size: 24px;
@@ -455,6 +465,7 @@ $conexion->close();
             color: var(--text-muted);
             margin-top: 6px;
         }
+
         .company-image {
             background: linear-gradient(135deg, #ff6b35 0%, #d94e1f 100%);
             border-radius: 12px;
@@ -508,11 +519,13 @@ $conexion->close();
                 flex-direction: column;
             }
         }
- @media (max-width: 768px) {
+
+        @media (max-width: 768px) {
             .header2 {
                 flex-direction: column;
                 gap: 15px;
             }
+
             aside {
                 width: 100%;
                 border-right: none;
@@ -558,60 +571,58 @@ $conexion->close();
         .modal-box h2 { margin-bottom: 20px; color: #1a1a1a; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; color: #666; font-weight: bold; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
         .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
         .btn-cancelar { background: #e2e8f0; color: #4a5568; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
         .btn-guardar { background: #ff6b35; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
     </style>
 </head>
+
 <body>
     <!-- HEADER -->
-   <?php include '../templates/header.php'; ?>
+    <?php include '../templates/header.php'; ?>
 
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
         <!-- SIDEBAR -->
-        
+
         <?php include '../templates/sidebar.php'; ?>
         <!-- CONTENIDO CENTRAL -->
         <div class="content">
             <div class="card">
                 <div class="header2">
                     <div>
-                        <h1><i class="fas fa-users" style="color: var(--primary-color); margin-right: 10px;"></i> Gestión de Usuarios</h1>
-                        <p>Administra las cuentas y los permisos del sistema</p>
+                        <h1><i class="fas fa-box" style="color: var(--primary-color); margin-right: 10px;"></i>
+                            Gestión de Productos</h1>
+                        <p>Administra el inventario de productos del sistema</p>
                     </div>
-                    <button onclick="abrirModal('crear')" class="btn-nuevo"><i class="fas fa-plus"></i> Nuevo Usuario</button>
+                    <button onclick="abrirModal('crear')" class="btn-nuevo"><i class="fas fa-plus"></i> Nuevo Producto</button>
                 </div>
-                
+
                 <?php if (isset($_SESSION["mensaje"])): ?>
                     <div class="mensaje-exito">
                         <?php
-    echo $_SESSION["mensaje"];
-    unset($_SESSION["mensaje"]);
-?>
+                        echo $_SESSION["mensaje"];
+                        unset($_SESSION["mensaje"]);
+                        ?>
                     </div>
-                <?php
-endif; ?>
+                    <?php
+                endif; ?>
 
                 <div class="filtros">
-                <input type="text" id="filtroNombre" placeholder="Buscar por nombre...">
-                <input type="text" id="filtroEmail" placeholder="Buscar por email...">
-                <select id="filtroEstado">
-                    <option value="">Todos los estados</option>
-                    <option value="activo">Activo</option>
-                    <option value="inactivo">Inactivo</option>
-                </select>
-            </div>
+                    <input type="text" id="filtroCodigo" placeholder="Buscar por código...">
+                    <input type="text" id="filtroDescripcion" placeholder="Buscar por descripción...">
+                </div>
 
-            <div class="table-responsive">
-                    <table id="tablaUsuarios">
+                <div class="table-responsive">
+                    <table id="tablaProductos">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Rol</th>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -620,36 +631,33 @@ endif; ?>
                         </tbody>
                     </table>
                     <div id="no-datos" class="sin-datos" style="display: none;">
-                        <h3>No hay usuarios registrados</h3>
-                        <p>Comienza creando un nuevo usuario</p>
+                        <h3>No hay productos registrados</h3>
+                        <p>Comienza creando un nuevo producto</p>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="modal-overlay" id="usuarioModal">
+    <div class="modal-overlay" id="productoModal">
         <div class="modal-box">
-            <h2 id="modalTitle">Nuevo Usuario</h2>
-            <form id="usuarioForm">
-                <input type="hidden" id="usuarioId">
+            <h2 id="modalTitle">Nuevo Producto</h2>
+            <form id="productoForm">
+                <input type="hidden" id="productoId">
                 <div class="form-group">
-                    <label>Nombre:</label>
-                    <input type="text" id="nombre" required>
+                    <label>Código:</label>
+                    <input type="text" id="codigo" required>
                 </div>
                 <div class="form-group">
-                    <label>Email:</label>
-                    <input type="email" id="correo" required>
+                    <label>Descripción:</label>
+                    <input type="text" id="descripcion" required>
                 </div>
                 <div class="form-group">
-                    <label>Contraseña: <small id="hintContrasena" style="font-weight: normal; color: #888;"></small></label>
-                    <input type="password" id="contrasena" required>
+                    <label>Cantidad:</label>
+                    <input type="number" id="cantidad" step="any" required>
                 </div>
                 <div class="form-group">
-                    <label>Rol:</label>
-                    <select id="es_admin" required>
-                        <option value="0">Usuario</option>
-                        <option value="1">Admin</option>
-                    </select>
+                    <label>Precio:</label>
+                    <input type="number" id="precio" step="0.01" required>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
@@ -660,14 +668,14 @@ endif; ?>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", cargarUsuarios);
+        document.addEventListener("DOMContentLoaded", cargarProductos);
 
-        function cargarUsuarios() {
+        function cargarProductos() {
             fetch('api.php')
                 .then(res => res.json())
                 .then(data => {
                     const tbody = document.getElementById('tabla-body');
-                    const tabla = document.getElementById('tablaUsuarios');
+                    const tabla = document.getElementById('tablaProductos');
                     const noDatos = document.getElementById('no-datos');
                     tbody.innerHTML = '';
 
@@ -677,27 +685,24 @@ endif; ?>
                     } else {
                         tabla.style.display = 'table';
                         noDatos.style.display = 'none';
-                        data.forEach(u => {
-                            const id = u.id || u.Id || u.ID;
-                            const rolBadge = parseInt(u.es_admin) === 1 
-                                ? `<span class="rol-badge rol-admin">Admin</span>`
-                                : `<span class="rol-badge rol-usuario">Usuario</span>`;
-                                
+                        data.forEach(p => {
+                            const id = p.Id || p.ID || p.id;
                             const tr = document.createElement('tr');
                             tr.innerHTML = `
                                 <td><span style="color: #9ca3af; font-weight: 600;">#${id}</span></td>
-                                <td style="font-weight: 600; color: #111827;">${u.nombre || ''}</td>
-                                <td style="color: #6b7280;">${u.correo || ''}</td>
-                                <td data-estado="${parseInt(u.es_admin) === 1 ? 'admin' : 'usuario'}">${rolBadge}</td>
+                                <td style="font-weight: 600; color: #111827;">${p.Codigo || ''}</td>
+                                <td style="color: #6b7280;">${p.Descripcion || ''}</td>
+                                <td style="color: #6b7280;">${p.Cantidad || ''}</td>
+                                <td style="font-weight: 600; color: #10b981;">$${parseFloat(p.Precio).toFixed(2) || '0.00'}</td>
                                 <td>
                                     <div class="acciones">
-                                        <button onclick="verUsuario(${id})" class="btn-accion btn-ver" title="Ver detalle">
+                                        <button onclick="verProducto(${id})" class="btn-accion btn-ver" title="Ver detalle">
                                             <i class="fas fa-eye"></i> Ver
                                         </button>
                                         <button onclick="abrirModal('editar', ${id})" class="btn-accion btn-editar" title="Editar">
                                             <i class="fas fa-edit"></i> Editar
                                         </button>
-                                        <button onclick="eliminarUsuario(${id})" class="btn-accion btn-eliminar" title="Eliminar">
+                                        <button onclick="eliminarProducto(${id})" class="btn-accion btn-eliminar" title="Eliminar">
                                             <i class="fas fa-trash"></i> Eliminar
                                         </button>
                                     </div>
@@ -708,72 +713,65 @@ endif; ?>
                         filtrar();
                     }
                 })
-                .catch(err => console.error("Error cargando usuarios:", err));
+                .catch(err => console.error("Error cargando productos:", err));
         }
 
         function abrirModal(modo, id = null) {
-            document.getElementById('usuarioModal').classList.add('active');
-            const form = document.getElementById('usuarioForm');
+            document.getElementById('productoModal').classList.add('active');
+            const form = document.getElementById('productoForm');
             form.reset();
 
-            const inputs = form.querySelectorAll('input:not([type="hidden"]), select');
+            const inputs = form.querySelectorAll('input:not([type="hidden"])');
             const btnGuardar = form.querySelector('.btn-guardar');
-            const passInput = document.getElementById('contrasena');
-            const hintPass = document.getElementById('hintContrasena');
 
             if (modo === 'ver') {
-                document.getElementById('modalTitle').innerText = 'Detalles del Usuario';
+                document.getElementById('modalTitle').innerText = 'Detalles del Producto';
                 btnGuardar.style.display = 'none';
                 inputs.forEach(input => input.disabled = true);
-                hintPass.innerText = '(Oculto)';
-                passInput.required = false;
-                passInput.value = '********';
                 
                 fetch(`api.php?id=${id}`)
                     .then(res => res.json())
                     .then(data => {
-                        document.getElementById('usuarioId').value = data.id || data.Id || data.ID;
-                        document.getElementById('nombre').value = data.nombre || '';
-                        document.getElementById('correo').value = data.correo || '';
-                        document.getElementById('es_admin').value = data.es_admin || 0;
+                        document.getElementById('productoId').value = data.Id || data.ID || data.id;
+                        document.getElementById('codigo').value = data.Codigo || '';
+                        document.getElementById('descripcion').value = data.Descripcion || '';
+                        document.getElementById('cantidad').value = data.Cantidad || '';
+                        document.getElementById('precio').value = data.Precio || '';
                     });
             } else if (modo === 'editar') {
-                document.getElementById('modalTitle').innerText = 'Editar Usuario';
+                document.getElementById('modalTitle').innerText = 'Editar Producto';
                 btnGuardar.style.display = 'block';
                 inputs.forEach(input => input.disabled = false);
-                hintPass.innerText = '(Dejar en blanco para no cambiar)';
-                passInput.required = false;
 
                 fetch(`api.php?id=${id}`)
                     .then(res => res.json())
                     .then(data => {
-                        document.getElementById('usuarioId').value = data.id || data.Id || data.ID;
-                        document.getElementById('nombre').value = data.nombre || '';
-                        document.getElementById('correo').value = data.correo || '';
-                        document.getElementById('es_admin').value = data.es_admin || 0;
+                        document.getElementById('productoId').value = data.Id || data.ID || data.id;
+                        document.getElementById('codigo').value = data.Codigo || '';
+                        document.getElementById('descripcion').value = data.Descripcion || '';
+                        document.getElementById('cantidad').value = data.Cantidad || '';
+                        document.getElementById('precio').value = data.Precio || '';
                     });
             } else {
-                document.getElementById('modalTitle').innerText = 'Nuevo Usuario';
-                document.getElementById('usuarioId').value = '';
+                document.getElementById('modalTitle').innerText = 'Nuevo Producto';
+                document.getElementById('productoId').value = '';
                 btnGuardar.style.display = 'block';
                 inputs.forEach(input => input.disabled = false);
-                hintPass.innerText = '';
-                passInput.required = true;
             }
         }
 
         function cerrarModal() {
-            document.getElementById('usuarioModal').classList.remove('active');
+            document.getElementById('productoModal').classList.remove('active');
         }
 
-        document.getElementById('usuarioForm').addEventListener('submit', function(e) {
+        document.getElementById('productoForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const id = document.getElementById('usuarioId').value;
+            const id = document.getElementById('productoId').value;
             const data = {
-                nombre: document.getElementById('nombre').value,
-                correo: document.getElementById('correo').value,
-                contrasena: document.getElementById('contrasena').value,
-                es_admin: document.getElementById('es_admin').value
+                codigo: document.getElementById('codigo').value,
+                descripcion: document.getElementById('descripcion').value,
+                cantidad: document.getElementById('cantidad').value,
+                precio: document.getElementById('precio').value
             };
 
             if (id) {
@@ -784,7 +782,7 @@ endif; ?>
                     body: JSON.stringify(data)
                 }).then(() => {
                     cerrarModal();
-                    cargarUsuarios();
+                    cargarProductos();
                 });
             } else {
                 fetch('api.php', {
@@ -793,45 +791,40 @@ endif; ?>
                     body: JSON.stringify(data)
                 }).then(() => {
                     cerrarModal();
-                    cargarUsuarios();
+                    cargarProductos();
                 });
             }
         });
 
-        function eliminarUsuario(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+        function eliminarProducto(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
                 fetch('api.php', {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({id: id})
-                }).then(() => cargarUsuarios());
+                }).then(() => cargarProductos());
             }
         }
 
-        function verUsuario(id) {
+        function verProducto(id) {
             abrirModal('ver', id);
         }
 
         // Filtros en tiempo real
-        document.getElementById('filtroNombre').addEventListener('keyup', filtrar);
-        document.getElementById('filtroEmail').addEventListener('keyup', filtrar);
-        document.getElementById('filtroEstado').addEventListener('change', filtrar);
-        
+        document.getElementById('filtroCodigo').addEventListener('keyup', filtrar);
+        document.getElementById('filtroDescripcion').addEventListener('keyup', filtrar);
+
         function filtrar() {
-            const nombre = document.getElementById('filtroNombre').value.toLowerCase();
-            const email = document.getElementById('filtroEmail').value.toLowerCase();
-            const estado = document.getElementById('filtroEstado').value.toLowerCase();
-            const filas = document.querySelectorAll('#tablaUsuarios tbody tr');
+            const codigo = document.getElementById('filtroCodigo').value.toLowerCase();
+            const descripcion = document.getElementById('filtroDescripcion').value.toLowerCase();
+            const filas = document.querySelectorAll('#tablaProductos tbody tr');
 
             filas.forEach(fila => {
                 if (fila.cells.length > 2) {
-                    const rolTexto = fila.cells[3].getAttribute('data-estado') || '';
-                    
-                    const coincide = 
-                        fila.cells[1].textContent.toLowerCase().includes(nombre) &&
-                        fila.cells[2].textContent.toLowerCase().includes(email) &&
-                        (estado === '' || rolTexto.includes(estado));
-                    
+                    const coincide =
+                        fila.cells[1].textContent.toLowerCase().includes(codigo) &&
+                        fila.cells[2].textContent.toLowerCase().includes(descripcion);
+
                     fila.style.display = coincide ? '' : 'none';
                 }
             });
@@ -840,4 +833,5 @@ endif; ?>
     <!-- FOOTER -->
     <?php include '../templates/footer.php'; ?>
 </body>
+
 </html>

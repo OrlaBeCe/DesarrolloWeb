@@ -2,7 +2,29 @@
 session_start();
 // Redirige si no existe una sesión activa
 if (!isset($_SESSION["usuario"])) {
-    header("Location: login2.php");
+    header("Location: ../login2.php");
+    exit();
+}
+
+// Conexión a la base de datos
+include("../lib/conexion.php");
+
+// Consultar el producto a visualizar
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+    $stmt = $conexion->prepare("SELECT * FROM productos WHERE Id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $producto = $result->fetch_assoc();
+    } else {
+        header('Location: index.php?error=producto_no_encontrado');
+        exit();
+    }
+} else {
+    header('Location: index.php?error=id_no_proporcionado');
     exit();
 }
 
@@ -15,6 +37,15 @@ if (!isset($_SESSION["usuario"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Meximotix</title>
     <style>
+        :root {
+            --primary-color: #ff6b35;
+            --primary-hover: #e55a2b;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --input-bg: #f8f9fa;
+            --input-border: #e2e8f0;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -133,9 +164,29 @@ if (!isset($_SESSION["usuario"])) {
         /* CONTENIDO CENTRAL */
         .content {
             flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: #fdfdfd;
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .card {
+            background: white;
+            width: 100%;
+
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-top: 6px solid var(--primary-color);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
         }
 
         .main-area {
@@ -173,6 +224,114 @@ if (!isset($_SESSION["usuario"])) {
             border-radius: 20px;
             font-weight: bold;
             font-size: 12px;
+        }
+
+        .header {
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .header-icon {
+            background: #edf2f7;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            color: var(--primary-color);
+        }
+
+        .header h1 {
+            font-size: 26px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .info-group {
+            margin-bottom: 22px;
+        }
+
+        .info-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-value {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #ebf4ff;
+            color: #3182ce;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .badge-user {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #edf2f7;
+            color: #4a5568;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .company-info {
@@ -284,52 +443,76 @@ if (!isset($_SESSION["usuario"])) {
 
 <body>
     <!-- HEADER -->
-    <?php include 'templates/header.php'; ?>
+    <?php include '../templates/header.php'; ?>
 
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
         <!-- SIDEBAR -->
 
-        <?php include 'templates/sidebar.php'; ?>
+        <?php include '../templates/sidebar.php'; ?>
         <!-- CONTENIDO CENTRAL -->
         <div class="content">
-            <div class="main-area">
-                <div class="welcome-section">
-                    <div class="welcome-header">
-                        <h2>Bienvenido a Meximotix</h2>
-                        <span class="badge">VERSIÓN PRO</span>
+            <div class="card">
+                <div class="header">
+                    <div class="header-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h1>Detalles del Producto</h1>
+                    <p>Información detallada del producto en inventario</p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-group">
+                        <span class="info-label">ID de Producto</span>
+                        <div class="data-value">
+                            <?php echo htmlspecialchars($producto['Id']); ?>
+                        </div>
                     </div>
 
-                    <div class="company-info">
-                        <div class="info-text">
-                            <h3>Sobre Meximotix</h3>
-                            <p>
-                                Somos una empresa líder en soluciones tecnológicas y servicios automotrices,
-                                comprometida con la excelencia y la innovación.
-                            </p>
-                            <p>
-                                Nuestro equipo profesional está dedicado a brindar las mejores soluciones
-                                para tu negocio, con tecnología de punta y atención al cliente sin igual.
-                            </p>
-                            <div class="features">
-                                <span class="feature-tag">✓ Innovación</span>
-                                <span class="feature-tag">✓ Calidad</span>
-                                <span class="feature-tag">✓ Confiabilidad</span>
-                                <span class="feature-tag">✓ Soporte 24/7</span>
-                            </div>
-                        </div>
-                        <div class="company-image">
-                            🚗
+                    <div class="info-group">
+                        <span class="info-label">Código</span>
+                        <div class="data-value">
+                            <?php echo htmlspecialchars($producto['Codigo']); ?>
                         </div>
                     </div>
+
+                    <div class="info-group">
+                        <span class="info-label">Descripción</span>
+                        <div class="data-value">
+                            <?php echo htmlspecialchars($producto['Descripcion']); ?>
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <span class="info-label">Cantidad en Stock</span>
+                        <div class="data-value">
+                            <?php echo htmlspecialchars($producto['Cantidad']); ?>
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <span class="info-label">Precio Unitario</span>
+                        <div class="data-value">
+                            $<?php echo number_format($producto['Precio'], 2); ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-primary" onclick="window.location.href='index.php'">Volver a la
+                        lista</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <?php include 'templates/footer.php'; ?>
-
+    <?php include '../templates/footer.php'; ?>
 </body>
 
 </html>

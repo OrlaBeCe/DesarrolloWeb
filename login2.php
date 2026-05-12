@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -26,7 +26,8 @@
             width: 100%;
         }
         .login-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-bottom: 4px solid #ff6b35;
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -54,11 +55,11 @@
             transition: all 0.3s ease;
         }
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
         }
         .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ff6b35;
             border: none;
             padding: 12px;
             font-size: 1rem;
@@ -66,10 +67,12 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             width: 100%;
+            color: white;
         }
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            background: #e55a2b;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
             color: white;
         }
         .login-footer {
@@ -79,7 +82,7 @@
             border-top: 1px solid #e0e0e0;
         }
         .login-footer a {
-            color: #667eea;
+            color: #ff6b35;
             text-decoration: none;
             font-weight: 600;
         }
@@ -96,8 +99,8 @@
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h1>🔐 Bienvenido</h1>
-            <p>Inicia sesión en tu cuenta</p>
+            <h1 style="color: #ff6b35; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">MexiMotix</h1>
+            <p>Inicia sesión en el sistema</p>
         </div>
         <form class="login-form" action="verificacion.php" method="POST">
             <input type="hidden" name="origen" value="admin">
@@ -152,7 +155,7 @@
 
     .btn-login {
         letter-spacing: 0.5px;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
     }
 
     .login-footer p {
